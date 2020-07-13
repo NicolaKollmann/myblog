@@ -1,7 +1,7 @@
 :root {
-  --titleFont: 'Merriweather', serif;
-  --bodyFont: 'Noto Sans', sans-serif;
-  --annotationFont: 'Merriweather Sans', sans-serif;
+  --titleFont: 'Montserrat', sans-serif;
+  --bodyFont: 'Circi', sans-serif;
+  --annotationFont: 'Avenir', sans-serif;
   --gray: #999999;
   --grayDark: #2E343B;
   --white: #FFFFFF;
@@ -15,31 +15,31 @@
 }
 
 body.light{
-  --accent: #C81937; /* magenta */
+  --accent: #004c4c; /* magenta */
   --content: #1A2849; /* dark blue */
   --tertiary: #696E84; /* mid blue */
-  --page: #FBE0DE; /* light pink */
-  --drawer: #F4BAB7;
-  --mainShadow: 0px 2px 3px rgba(137, 21, 35, 0.3);
-  --mainShadowHover: 0px 10px 20px rgba(137, 21, 35, 0.2);
-  --elevation: #FEF9F8; /* very light pink */
+  --page: #cce5e5; /* light teal */
+  --drawer: #cce5e5;
+  --mainShadow: 0px 2px 3px rgba(26, 51, 51, 0.3);
+  --mainShadowHover: 0px 10px 20px rgba(26, 51, 51, 0.2);
+  --elevation: #f3f9f9; /* very light teal */
   --elevationHover: #FFFFFF; /* white */
-  --introGradient: linear-gradient(180deg, #FDF0EF 0%, var(--page) 100%);
+  --introGradient: linear-gradient(180deg, #d9ecec 0%, var(--page) 100%);
   --codeBG: #FFFFFF;
   --codeFont: #C81937;
 }
 
 body.dark{
-  --accent: #FFCAD3; /* light pink */ /*#FFF9F9;*/ /* cream */
+  --accent: #FFF9F9; /* cream */
   --content: #FFF9F9; /* cream */
   --tertiary: #C4C4CA; /* light gray */
-  --page: #252D3E; /* dark blue */
-  --drawer: #1B2334;
-  --mainShadow: 0px 2px 3px rgba(14, 11, 33, 0.3);
-  --mainShadowHover: 0px 10px 20px rgba(14, 11, 33, 0.3);
-  --elevation: #3D465C; /* light blue */
-  --elevationHover: #4A5570; /* lighter blue */
-  --introGradient: linear-gradient(180deg, #3B4251 0%, var(--page) 100%);
+  --page: #0e1b1b; /* dark teal */
+  --drawer: #0e1b1b;
+  --mainShadow: 0px 2px 3px rgba(14, 27, 27, 0.3);
+  --mainShadowHover: 0px 10px 20px rgba(14, 27, 27, 0.3);
+  --elevation: #1b3535; /* light blue */
+  --elevationHover: #224242; /* lighter blue */
+  --introGradient: linear-gradient(180deg, #142828 0%, var(--page) 100%);
   --codeBG: rgba(37, 45, 62, 0.4);
   --codeFont: #82B4E3;
 }
