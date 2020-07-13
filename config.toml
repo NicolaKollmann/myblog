@@ -26,7 +26,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   description = "A collection of my data science projects and blog posts about R."
   twitterAuthor = "@NicolaKollmann"
   twitterSite = "@NicolaKollmann"
-  images = ['logo.jpg']
+  images = ['profile.jpeg']
 
   # options for highlight.js (version, additional languages, and theme)
   highlight = true
