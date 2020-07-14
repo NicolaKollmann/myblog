@@ -49,8 +49,8 @@ if (!theme || theme === "undefined"){
 function setTheme(){
   // this is run if there is no stored theme
 
-  // if after 10PM or before 6AM, make dark mode
-  if (currentTime < 6 || currentTime >= 22) makeDark('first')
+  // if after 8PM or before 7AM, make dark mode
+  if (currentTime < 7 || currentTime >= 20) makeDark('first')
   else makeLight('first')
 }
 

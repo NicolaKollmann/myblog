@@ -1,5 +1,5 @@
 :root {
-  --titleFont: 'Montserrat', sans-serif;
+  --titleFont: 'Barlow', sans-serif;
   --bodyFont: 'Circi', sans-serif;
   --annotationFont: 'Avenir', sans-serif;
   --gray: #999999;
@@ -16,7 +16,7 @@
 
 body.light{
   --accent: #004c4c; /* magenta */
-  --content: #1A2849; /* dark blue */
+  --content: #0e1b1b; /* dark blue */
   --tertiary: #696E84; /* mid blue */
   --page: #cce5e5; /* light teal */
   --drawer: #cce5e5;
@@ -26,7 +26,7 @@ body.light{
   --elevationHover: #FFFFFF; /* white */
   --introGradient: linear-gradient(180deg, #d9ecec 0%, var(--page) 100%);
   --codeBG: #FFFFFF;
-  --codeFont: #C81937;
+  --codeFont: #0e1b1b;
 }
 
 body.dark{
@@ -41,7 +41,7 @@ body.dark{
   --elevationHover: #224242; /* lighter blue */
   --introGradient: linear-gradient(180deg, #142828 0%, var(--page) 100%);
   --codeBG: rgba(37, 45, 62, 0.4);
-  --codeFont: #82B4E3;
+  --codeFont: #cce5e5;
 }
 
 body{
