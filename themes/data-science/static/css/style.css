@@ -929,9 +929,11 @@ hr{
 
 
 code{
+  font-family: var(--codeFont);
+  font-size: 12px;
   background-color: var(--codeBG);
   padding: 2px 5px;
-  color: var(--codeFont);
+  color: var(--codeCol);
 }
 /* Simple Nav Styling */
 

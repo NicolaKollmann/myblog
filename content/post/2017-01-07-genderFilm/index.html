@@ -158,7 +158,8 @@ RO_full2 &lt;- RO_full %&gt;%
 <h4>Scatter Plot</h4>
 <p>As a native R user, my first attempt to visualize all of this data was naturally in R. I started with a simple scatter plot for each movie. I had “Number of Turns Speaking” (i.e., the number of independent times that character’s name showed up) on the x-axis, “Total Number of Words Spoken” on the y-axis, and the “Total Number of Words Spoken” also mapped to circle size. I decided to use the <code>highcharter</code> package and ended up with something like this:</p>
 <p><img src="figure1.png" alt="Scatter plot showing total number of words spoken per character compared to the number of times that character spoke at all." /><br />
-<em>Note: this figure that was once interactive has now been replaced with a static image. The above interactive code should still work, though if you choose to use it</em></p>
+</p>
+<p><em>Note: this figure that was once interactive has now been replaced with a static image. The above interactive code should still work, though if you choose to use it</em></p>
 <p>Again, this is the figure for Rogue One, and we can see some potentially interesting things here. For instance, Cassian (the male lead) speaks more than Jyn (the female lead). It’s also easy to spot characters that are a bit more long-winded when they get to speak (Bodhi Rook and Galen) while others keep things short and to the point (Baze Malbus).</p>
 <p>I looked at these figures for each movie, and found a few other entertaining outliers. In The Jungle Book, Baloo spoke the most words, but also had fewer speaking opportunities than Mowgli. He rambled more than any other character in the movie (which, didn’t actually contain too much dialogue, overall).</p>
 <p><img src="JB_Baloo.jpg" width="80%" style="display: block; margin: auto;" /></p>
@@ -170,7 +171,8 @@ RO_full2 &lt;- RO_full %&gt;%
 <h4>Bar Graph</h4>
 <p>Since the scatter plot didn’t work, I thought maybe a bar chart would. I plotted the characters along the X axis and total number of spoken words along the Y and (again for Rogue One) ended up with this:</p>
 <p><img src="figure2.png" alt="Bar chart showing the number of words spoken by each character." /><br />
-<em>Note: this figure that was once interactive has now been replaced with a static image. The above interactive code should still work, though if you choose to use it</em></p>
+</p>
+<p><em>Note: this figure that was once interactive has now been replaced with a static image. The above interactive code should still work, though if you choose to use it</em></p>
 <p>Still less than ideal. My biggest problem here is that there is such a big range between the main characters with lots of words and the minor characters with very few. Even in an interactive figure, you are required to zoom to get an idea of the smaller characters’ contributions.</p>
 <p>Needless to say, I wasn’t happy with the bar graph either.</p>
 </div>

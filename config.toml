@@ -40,7 +40,6 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 
 
-
 [params.social]
   email = "mailto:nicola@kollmann.li"
   twitter = "https://twitter.com/NicolaKollmann"

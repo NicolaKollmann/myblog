@@ -2,6 +2,7 @@
   --titleFont: 'Barlow', sans-serif;
   --bodyFont: 'Circi', sans-serif;
   --annotationFont: 'Avenir', sans-serif;
+  --codeFont: 'JetBrains Mono', sans-serif;
   --gray: #999999;
   --grayDark: #2E343B;
   --white: #FFFFFF;
@@ -26,7 +27,7 @@ body.light{
   --elevationHover: #FFFFFF; /* white */
   --introGradient: linear-gradient(180deg, #d9ecec 0%, var(--page) 100%);
   --codeBG: #FFFFFF;
-  --codeFont: #0e1b1b;
+  --codeCol: #0e1b1b;
 }
 
 body.dark{
@@ -41,7 +42,7 @@ body.dark{
   --elevationHover: #224242; /* lighter blue */
   --introGradient: linear-gradient(180deg, #142828 0%, var(--page) 100%);
   --codeBG: rgba(37, 45, 62, 0.4);
-  --codeFont: #cce5e5;
+  --codeCol: #cce5e5;
 }
 
 body{

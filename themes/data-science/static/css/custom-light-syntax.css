@@ -1,7 +1,7 @@
 /**
- * Soft Era Theme
- * Inspired by the Soft Aesthetic https://github.com/soft-aesthetic by Audrey Moon http://loveme.computer/
- * Author : Amber Thomas - https://github.com/ProQuestionAsker
+ * Groovy Theme
+ * Inspired by the Gruvebox https://github.com/highlightjs/highlight.js/blob/master/src/styles/gruvbox-light.css
+ * Author : Nicola Kollmann - https://github.com/NicolaKollmann
  */
 
 .hljs {
@@ -14,7 +14,7 @@
 
 .hljs-comment,
 .hljs-meta {
-  color: #806b6b;
+  color: #928374;
 }
 
 .hljs-string,
@@ -23,20 +23,20 @@
 .hljs-strong,
 .hljs-emphasis,
 .hljs-quote {
-  color: #414141;
+  color: #076678;
 }
 
 .hljs-keyword,
 .hljs-selector-tag,
 .hljs-type {
-  color: #a745ba;
+  color: #9d0006;
 }
 
 .hljs-literal,
 .hljs-symbol,
 .hljs-bullet,
 .hljs-attribute {
-  color: #296eae;
+  color: #427b58;
 }
 
 .hljs-section,
@@ -54,7 +54,7 @@
 .hljs-selector-class,
 .hljs-selector-attr,
 .hljs-selector-pseudo {
-  color: #1d7c7d;
+  color: #79740e;
 }
 
 .hljs-addition {
@@ -69,4 +69,15 @@
 
 .hljs-link {
   text-decoration: underline;
+}
+
+.hljs-comment,
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-section,
+.hljs-strong,
+.hljs-tag {
+  font-weight: bold;
 }
