@@ -29,7 +29,7 @@ pre {
  }
 
 .dark img{
- mix-blend-mode: hard-light;
+ mix-blend-mode: normal;
 }
 
 .dark .intro-container img{
