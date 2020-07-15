@@ -1,5 +1,5 @@
 ---
-title: ''Hello World''
+title: 'Hello World'
 authors: 
   - Nicola Kollmann
 date: '2020-07-14'
@@ -13,13 +13,13 @@ tags:
 buttons:
 description: 'This is a test post.'
 disqus: 'true'
-thumbnail: 
-image: 
-imageAlt: 
-imageCredit: 
-imageCreditLink: 
-imageSrc: 
-imageSrcLink: 
+thumbnail: 'thumbnail.jpg' 
+image: 'thumbnail.jpg'
+imageAlt: 'Sign saying hola'
+imageCredit: 'Jon Tyson'
+imageCreditLink: 'https://unsplash.com/@jontyson'
+imageSrc: 'Unsplash'
+imageSrcLink: 'https://unsplash.com'
 type: ''
 ---
 
