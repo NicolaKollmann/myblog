@@ -27,7 +27,8 @@ knitr::opts_chunk$set(echo = TRUE)
 I'm a marine biologist and science communicator by training, but I'm taking all of the data analysis, statistics, and mathematical modeling skills I've learned (and continue to learn) and I'm now applying them to new problems. I'm a full-time "Senior Journalist-Engineer" at [The Pudding](https://pudding.cool/). 
 </div>
 <div class='headerImg'>
-![](IMG_0832_FINAL.jpeg)
+![Nicola Kollmann](https://avatars3.githubusercontent.com/u/57948862?s=460&u=258033fc01717effe401fe98fa3bf70054d66d00&v=4){style="border-radius:50%"}
+
 </div>
 </div>
  
