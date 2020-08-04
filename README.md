@@ -4,7 +4,7 @@
 
 # Credits
  The creation of this blog is highly indebted to other people's prior work.
- * [Amber Thomas](https://github.com/ProQuestionAsker) did a fantastic job with the `data science` template for Hugo websites.
+ * [Amber Thomas](https://github.com/ProQuestionAsker) did a fantastic job with the `data-science` template for Hugo websites.
  * Her partner [Parker Young](https://animoplex.com/) is responsible for the amazing design.
  * [Yihui Xie](https://github.com/yihui) making it possible to create Blogs and Websites with R Markdown via the `blogdown` package. This is an open-source (GPL-3) R package to generate static websites based on [R Markdown](https://rmarkdown.rstudio.com/) and [Hugo](https://gohugo.io/).
  * [Netlify](https://netlify.com): The all-in-one platform for automating modern web projects.
