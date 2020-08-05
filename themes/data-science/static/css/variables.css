@@ -1,5 +1,5 @@
 :root {
-  --nameFont: 'Barlow';
+  --nameFont: 'Barlow', sans-serif;
   --titleFont: 'Barlow', sans-serif;
   --bodyFont: 'Ubuntu', sans-serif;
   --annotationFont: 'Avenir', sans-serif;
