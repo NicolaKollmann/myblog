@@ -1,7 +1,7 @@
 :root {
-  --nameFont: 'Indie Flower';
+  --nameFont: 'Barlow';
   --titleFont: 'Barlow', sans-serif;
-  --bodyFont: 'Circi', sans-serif;
+  --bodyFont: 'Ubuntu', sans-serif;
   --annotationFont: 'Avenir', sans-serif;
   --codeFont: 'Andale Mono', sans-serif;
   --gray: #999999;
