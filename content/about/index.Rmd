@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 .imageCont{display: flex; flex-direction: row; flex-wrap: wrap; max-width: 100%; align-items: center; justify-content: center}
 .imageCont img {max-width: 175px; height: 100%; object-fit: cover}
 .imageCont figure{margin: 0 5px; height: 175px}
-.headerImg{margin: 0 0.5rem; display: flex; justify-content: center; overflow: hidden; border-radius: 50%; width: 250px; height: 250px; border: 4px solid var(--content); box-shadow: var(--mainShadow)}
+.headerImg{margin: 0 0.5rem; display: flex; justify-content: center; overflow: hidden; border-radius: 50%; width: 250px; height: 250px; border: 3px double var(--content); box-shadow: var(--mainShadow)}
 .tldr-text{flex: 45%; margin: 0 1rem}
 .headerImg img{width: 250px; margin: 0 auto; height: 250px; object-fit: cover; mix-blend-mode: normal}
 </style>
@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <div class='tldr'>
 <div class='tldr-text'>
 ### TL;DR
-I'm a marine biologist and science communicator by training, but I'm taking all of the data analysis, statistics, and mathematical modeling skills I've learned (and continue to learn) and I'm now applying them to new problems. I'm a full-time "Senior Journalist-Engineer" at [The Pudding](https://pudding.cool/). 
+I'm an economist and finance professional by training, but I'm taking all of the data analysis, statistics, and mathematical modeling skills I've learned (and continue to learn) and I'm now applying them to new problems. Currently I'm a PhD candidate in Finance at the [University of St.Gallen](https://unisg.ch/). 
 </div>
 <div class='headerImg'>
 ![Nicola Kollmann](https://avatars3.githubusercontent.com/u/57948862?s=460&u=258033fc01717effe401fe98fa3bf70054d66d00&v=4){style="border-radius:50%"}
@@ -32,20 +32,30 @@ I'm a marine biologist and science communicator by training, but I'm taking all 
 </div>
 </div>
  
-
 ### The Long Version
-Hey there, I’m Amber. Professionally-speaking, I took a bit of a winding road to get to where I am now. By training, I’m a marine biologist. I studied marine biology (and chemistry) in college, followed it up with a Master’s in Marine Sciences, and ended up with a full-blown job as an Aquatic Research Associate at an aquarium (yes, that’s a real thing). Throughout school and work, I never really found a niche field that was more fascinating than the rest, which is generally frowned upon in focused academic work.  Luckily for me, I was allowed (and encouraged) to be flexible, so I’ve spent time studying seal pups, cuttlefish, parasites, water chemistry, sting-rays, dolphins, corals and other under-water topics and critters.  When explaining my job as a scientist to visiting children, I started referring to myself as a Professional Question-Asker (hence the seemingly strange Twitter handle @[ProQuesAsker](www.twitter.com/proquesasker)). I’d tell them that my job was to ask questions about the animals around me and do my best to find ways to answer those questions. It was the perfect description of my work and the ideal segue to finding my next career.
+Hi there, I’m Nicola. Professionally-speaking, I took a bit of a winding road to get to where I am now. By training, I’m an economist. I studied business administration (and civil law) to receive my Bachelor's degree, followed it up with a Master’s in Banking & Finance, and ended up with a job as a Research Associate at the [Competence Center of Corporate Finance](https://aca.unisg.ch/en/arbeitsgebiete/arnold). Throughout school and work, I never really found a niche field that was more fascinating than the rest, which is generally frowned upon in focused academic work. However, the methods of analyzing data and wrangling them into a coherent story always fascinated me. Also, I love breaking complex topics down into simple, easy-to-digest pieces. Thus, taking stock of the pieces of my job that I enjoy the most, we get: data analysis, data visualization, and story-telling. 
 
-<div class='imageCont'>
-```{r echo = FALSE}
-blogdown::shortcode("figure", src="turtle.jpg", alt="Man and woman (Amber) lift large loggerhead sea turtle for transport to rehabilitation")
-blogdown::shortcode("figure", src="seal_1.jpg", alt="Two women (Amber included) apply a dive monitor to an adult harbor seal")
-blogdown::shortcode("figure", src="dolphin.jpg", alt="Man and woman (Amber) look at two dolphins through aquarium glass.")
-```
-</div>
+At the start of setting up this website, I had no idea how these pieces will eventually fit together yet, but beefing up my data skills seemed to be a good place to start. After a few months of expanding my skillset beyond the statistics and simple R-programming I use as a scientist and creating lots of personal projects, I am now ready to share my knowledge via this personal website.
 
-You see, when people tell you that marine biology is a hard field to find/maintain steady employment, they aren’t kidding. As much as I enjoyed studying life beneath the waves, I decided that I should consider pivoting slightly to a different career field. For a while I had considered pursuing science communication since I loved breaking complex topics down into simple, easy-to-digest pieces. I even co-founded a [sci-comm service](www.unbox.science) to help others communicate their work.  But I kept searching. I took stock of the pieces of my job that I enjoyed the most: data analysis, data visualization, and story-telling. I had no idea how these pieces would fit together yet, but beefing up my data skills seemed to be a good place to start. After a few months of expanding my skillset beyond the statistics and simple R-programming I’d used as a scientist and creating lots of personal projects, I found [The Pudding](www.pudding.cool) team and have been lucky enough to get to work with them in some capacity ever since. These days I get to ask questions about a [wide variety of topics](www.proquestionasker.github.io/work), analyze lots of data, create fun and interactive visualizations, and tell stories.  It’s been a pretty great career-move, if you ask me!
+On a more personal note, my physical locations have also been on a bit of a winding path. I grew up and attended all levels of school in [Liechtenstein](https://tourismus.li/en/) (follow the link if you have never heard of this country before in your life :wink:). I moved to Bern, Switzerland for obtaining my degree in business administration and spent half a year in the beautiful city of Oslo, Norway as an exchange student. Currently, I am living again back at home in Liechtenstein. In my free time, I like to play football, read, watch way too much Netflix, and hike. 
 
-![man and woman (Amber) staring at Mount Rainier on a cliff edge](IMG_5163.jpg)
+Next to conducting research, fiddling around with datasets and closely following the financial markets, one of my greatest passions is traveling around the world and exploring different cultures. So far, my wanderlust has brought me to many fascinating countries across Europe. However, my most fascinating adventures were probably in Namibia :namibia:, South Africa :south_africa:, Cambodia :cambodia:, Thailand :thailand: and Australia :australia:.
 
-On a more personal note, my physical locations have also been on a bit of a winding path. I grew up and attended all levels of school in New England (Connecticut, Rhode Island, Maine, fwiw).  I moved to Orlando, FL for work and survived the scorching heat for a few years, and have recently relocated to Seattle, WA with my partner (no, it [doesn’t really](https://pudding.cool/2020/02/rain) rain every day). We have a puppy that I’m ~~mildly~~ obsessed with. His name is [Pixel](https://instagram.com/pixelnorthwest) and he's a Mini American Shepherd. In my free time, I like to hike, read, watch way too much Netflix, and practice aerial arts (particularly aerial silks -- think Cirque du Soleil type things). Care to chat about anything I mentioned or something I left out? Find me on Twitter @[ProQuesAsker](www.twitter.com/proquesasker) or [email me](www.proquestionasker.github.io/contact).
+![On the Table Mountain in Capetown, South Africa](capetown.jpeg)
+
+### About the Website
+
+At the beginning, this website was just another cool personal project I wanted to do in R - using the `blogdown` package and the Hugo framework for websites. During the setup of the website I came up with the idea of actually using it as a way of sharing some insights about topics that matter to me with an interested audience. You can therefore expect blog posts about a diversity of topics, with a focus on data science and statistics in R. The general language of the blog will remain English, as it is more natural to communicate data science and finance topics in their 'native' language. However, please don't mind some blog posts in my native language - German.
+
+Care to chat about anything I mentioned or something I left out? Find me on Twitter @[NicolaKollmann](www.twitter.com/NicolaKollmann) or [email me](mailto:nicola@kollmann.li). Also, please feel free to contact me for freelance work related to data analytics, visualizations or consulting. Finally, if you enjoy the content or even got some benefit out of it, please consider buying me a coffee :coffee:.
+
+<style>
+.bmc-button 
+img{height: 34px !important;width: 35px !important;margin-bottom: 1px !important;box-shadow: none !important;border: none !important;vertical-align: middle !important;}
+.bmc-button{padding: 7px 15px 7px 10px !important;line-height: 35px !important;height:51px !important;text-decoration: none !important;display:inline-flex !important;color:--content !important;background-color:--page !important;border-radius: 8px !important;border: 1px solid transparent !important;font-size: 24px !important;letter-spacing: 0.6px !important;box-shadow: 0px 1px 2px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;margin: 0 auto !important;font-family:'Cookie', cursive !important;-webkit-box-sizing: border-box !important;box-sizing: border-box !important;}
+.bmc-button:hover, .bmc-button:active, .bmc-button:focus {-webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;text-decoration: none !important;box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;opacity: 0.85 !important;color:#ffffff !important;}
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
+
+<center><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/nicolakollmann"><span style="margin-left:5px;font-size:24px !important;">Buy me a coffee</span></a></center>
