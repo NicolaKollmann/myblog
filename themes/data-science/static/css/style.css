@@ -1023,7 +1023,7 @@ code{
 
 .nav__title{
   font-family: var(--titleFont);
-  font-size: 16px;
+  font-size: 14px;
   color: var(--accent);
   align-self: center;
   font-weight: bold;
