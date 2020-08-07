@@ -1,0 +1,485 @@
+---
+title: Analyzing Airbnb Property Data from Texas
+author: Nicola Kollmann
+date: '2020-08-07'
+slug: airbnb-texas
+categories:
+  - post
+tags:
+  - english
+  - R
+  - spatial econometrics
+  - maps
+authors: []
+description: ''
+disqus: ''
+image: ''
+imageAlt: ''
+imageCredit: ''
+imageCreditLink: ''
+type: ''
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+# packages
+library(tidyverse)
+library(lubridate)
+library(rgdal)
+library(kableExtra)
+library(spdep)
+library(leaflet)
+library(geodist)
+library(expm)
+library(DT)
+library(plotly)
+theme_set(theme_light())
+```
+
+
+## Term Paper
+### Analyzing Airbnb Property Data from Texas
+
+This is an R Markdown document that documents my work for the term paper in the "Regression Analysis for Spatial Data" course. The course was taught by Professor Dr. Roland Füss and Dr. Zeno Adams as part of the GSERM Summer School 2020. The main textbook for the course was written by LeSage and Page (2009)[^1]. Thus, the methods used in this term paper are also in close resemblance to their work. 
+
+#### Load the data set 
+
+The first step in any data analysis is to set the working directory and load the necessary data into the dataframe `dat`. The data set at hand contains more than 18'000 [Airbnb](https://en.wikipedia.org/wiki/Airbnb) property listings from Texas, United States, and can be found online on [Kaggle](https://www.kaggle.com/PromptCloudHQ/airbnb-property-data-from-texas).
+
+```{r, include=FALSE}
+dat <- read_csv("Airbnb_Texas_Rentals.csv")[ , -c(1, 6, 9, 10)]
+```
+
+#### Cleaning the data set 
+
+Since we are particularly interested in the spatial dependence of the Airbnb rates, we first have to check for missing values in the longitude and latitude columns. If these values are missing, the observation is not considered in the analysis. We only loose 42 observations due to this restriction. Another step in the cleaning process requires the removal of the dollar sign for the average rate per night, since this should be a numerical variable. Also, the variables could be named more nicely to produce comprehensible tables and illustrations. The code below takes care of all of this and some more cleaning steps.
+
+```{r, message=FALSE}
+# drop missing values
+dat <- dat %>% drop_na()
+
+# remove the dollar sign string
+dat$average_rate_per_night <- dat$average_rate_per_night %>% str_remove("\\$")
+
+# rename variables
+dat <- rename(dat, bedrooms = bedrooms_count)
+dat <- rename(dat, rate = average_rate_per_night)
+
+# extract the year and month the property was listed on Airbnb
+dat$date_of_listing <- mdy(dat$date_of_listing)
+dat$year <- year(dat$date_of_listing)
+dat$month <- month(dat$date_of_listing)
+dat <- dat[ , -4] 
+
+# code the 'Studio' string as a number
+dat$bedrooms <- dat$bedrooms %>% str_replace("Studio", "1")
+
+# convert all variables to the appropriate type
+dat <- type_convert(dat)
+
+```
+
+#### Explorative Data Analysis
+
+The first part of the term paper will focus on a explorative data analysis. To get a first idea about the data set, the table below provides a short glimpse into the first 10 observations and the available variables. It also allows for more interaction with the data by searching and filtering the entire data set.
+
+```{r, echo=FALSE, warning=FALSE}
+datatable(dat, rownames = FALSE, filter="top", options = list(pageLength = 10, scrollX=T))
+```
+
+The table above lets us observe that we have some characteristics for each property listing on Airbnb. The first column `rate` contains the average rate per night in US Dollars for each listing . Also, we have information on the number of bedrooms (where a value of `1` corresponds to either a Studio apartment or a one-bedroom property) and the `year` and `month`, when the property was first listed on Airbnb. Moreover, we see that the `longitude` and `latitude` for each property is provided, giving us the exact point on the map, where the property is located. The plot below shows how our property listings are distributed across the state of Texas.
+
+<center>
+```{r, echo=FALSE, warning=FALSE}
+m <- leaflet()
+m <- setView(m, lng = mean(dat$longitude), lat = mean(dat$latitude), zoom = 6)
+m <- addProviderTiles(m, providers$Stamen.Toner)
+m <- addCircleMarkers(m, lng = dat$longitude, lat = dat$latitude,
+                      clusterOptions = markerClusterOptions())
+m
+```
+</center>
+
+One thing that becomes quite obvious when you look at the map is that most of the properties cluster in and around the larger cities in Texas (e.g., Dallas, Austin, San Antonio and Houston). Zooming into the map allows for a more granular point of view.
+
+Visually exploring the data a bit more lets us find more interesting facts. For instance, one possible question that we would like to address is if there is any spatial dependence in the average rate per night. Our intuition would suggest that Airbnb's pricing algorithm takes the spatial location of a property into account. By dividing the properties into 10 categories based on their rate and color-coding them, it is possible to check this intuition with the following map.
+
+<center>
+```{r, echo=FALSE, warning=FALSE}
+# color coding the observations according to the average rate per night in $
+pal <- colorQuantile("plasma", domain = dat$rate, reverse = TRUE, n = 10)
+dat$color <- pal(dat$rate)
+
+m <- leaflet()
+m <- setView(m, lng = mean(dat$longitude), lat = mean(dat$latitude), zoom = 6)
+m <- addProviderTiles(m, providers$Stamen.Toner)
+m <- addCircleMarkers(m, lng = dat$longitude, lat = dat$latitude,
+                      label = dat$rate,
+                      radius = log(dat$rate), stroke = FALSE, fillOpacity = 0.3, fill = TRUE, fillColor = dat$color) 
+m <- addLegend(m, pal = pal, values = dat$rate, opacity = 1, title = "Average rate per night [$]")
+m <- m %>% addEasyButton(easyButton(
+    icon="fa-crosshairs", title="Fly to Houston",
+    onClick=JS("function(btn, map){ map.flyTo([29.74078, -95.35435], 10); }"))); m
+```
+</center>
+
+Even though it seems like there is no general pattern to be observed at first, the spatial dependence becomes apparent when zooming into urban areas around the major cities. For instance, focusing on the area in and around Houston (click the crosshairs icon), clearly shows that properties in the city center tend to be cheaper compared to the surrounding area. This is an interesting first observation that we will keep in mind in the following analysis.
+
+Some more questions that can be explored visually are answered below.
+
+##### What is the distribution with respect to the number of bedrooms?
+
+```{r, echo=FALSE}
+plot <- dat %>%
+  ggplot(aes(bedrooms)) +
+    geom_bar() +
+    theme(axis.title.y = element_blank()) +
+    labs(x = "number of bedrooms") +
+    scale_x_continuous(breaks = round(seq(min(dat$bedrooms), max(dat$bedrooms), by = 1),1))
+```
+
+<center>
+```{r, echo=FALSE}
+plot
+```
+</center>
+
+The majority of properties either is listed as a studio or has one bedroom. The maximum number of bedrooms is 13.
+
+##### Is there a visual, linear trend between average rate per night and the number of bedrooms?
+
+```{r, echo=FALSE}
+plot <- dat %>%
+  filter(rate < quantile(dat$rate, 0.97)) %>%
+  ggplot(aes(x = bedrooms, y = rate)) +
+  geom_jitter(alpha=1/2) +
+  labs(x = "number of bedrooms", y = "average rate per night [$]") +
+  scale_x_continuous(breaks = round(seq(min(dat$bedrooms), max(dat$bedrooms), by = 1),1))
+```
+
+<center>
+```{r, echo=FALSE}
+ggplotly(plot)
+```
+</center>
+
+Looking at the plot, one can observe a linear trend by focusing on the lower and upper end of the data clouds for each category. Even though every number of bedrooms has properties across the whole range of rates, the bulk of the data slightly shifts upwards moving from less bedrooms on the left hand side, to more bedrooms to the right. However, it is important to note that the number of bedrooms is not a very strong predictor of the rate, as long as it is not above 4.  
+
+##### Are more properties being listed over time?
+
+```{r}
+plot <- dat %>%
+  ggplot(aes(x = year)) +
+    geom_bar() +
+    theme(axis.title.y = element_blank()) +
+    labs(x = "year of listing on Airbnb") +
+    scale_x_continuous(breaks = round(seq(min(dat$year), max(dat$year), by = 1),1))
+```
+
+<center>
+```{r, echo=FALSE}
+plot
+```
+</center>
+
+Yes, the number of listings has grown over the past decade. The data has been collected in the second half of 2017, which explains the drop of new listings in the graph.  
+
+#### Comparison Across Major Cities
+
+Let us dive a little deeper into the data and look at the distribution of the average rate per night across cities. The nine cities, where we have most observations in our data set are in order: Houston, Austin, San Antonio, Dallas, Fort Worth, Corpus Christi, College Station, Irving and Bryan. First, lets look at some boxplots to compare the average rate per night across these major cities.  
+
+```{r, include=FALSE}
+
+top8 <- c("Houston", "Austin", "San Antonio", "Dallas", "Fort Worth", "Corpus Christi", "College Station", "Irving", "Bryan")
+
+rate_top8 <- dat %>%
+  filter(city %in% top8) %>%
+  filter(rate < quantile(dat$rate, 0.97))
+
+bp <- rate_top8 %>%
+  ggplot(aes(rate, city, fill=city)) +
+  geom_boxplot() +
+   theme(legend.position = "none") +
+  theme(axis.title.y = element_blank()) +
+  labs(x = "average rate per night [$]")
+
+hist <- rate_top8 %>%
+  ggplot(aes(rate, fill = city)) +
+  geom_histogram() +
+  facet_wrap(~ city, scales = "free_y") +
+  theme(legend.position = "none") +
+  labs(x = "average rate per night [$]", y = "# of property listings")
+```
+
+<center>
+```{r, echo=FALSE}
+bp
+```
+</center>
+
+Looking at the data from this perspective shows that Corpus Christi has the highest median rate per night, while Irving seems to be on the lower end of the spectrum. As one can see, every city has a fair amount of extremely high priced properties, with rates of more than 750$ per night. This lets us infer that the distribution of rates is positively skewed, with a large tail to the right-hand side of the distribution. The following figure confirms this for most of the cities.
+
+<center>
+```{r, echo=FALSE, message=FALSE}
+hist
+```
+</center>
+
+***
+
+#### Regression Analysis
+
+The exploratory part of this term paper left us with some interesting insights into the distribution of nightly Airbnb rates in Texas. In a next step, we will now restrict the analysis to the city, where most of our observations are coming from - Houston. Also the geographical location of Houston inside the state of Texas is interesting, since the city is in close proximity to the sea.
+
+```{r}
+houston <- dat %>% filter(city == "Houston")
+```
+
+##### OLS
+
+Our benchmark hedonic OLS regression model only has one predictor - `bedrooms`. It would, of course, be very interesting to have more information about the properties (e.g., the total size of the property, amenities, reviews and an overall rating).
+
+```{r}
+# benchmark hedonic OLS regression
+fit.ols <- lm(rate ~ bedrooms, data = houston)
+summary(fit.ols)
+```
+
+This allows us, for instance, to predict the average rate per night for a property located in Houston with 2 bedrooms.
+
+```{r}
+# counterfactual
+cf <- data.frame(bedrooms = 2)
+predict(fit.ols, newdata = cf, interval = "prediction", level = 0.25)
+
+```
+
+##### Spatial Model (MESS)
+
+To incorporate the spatial model we need a weight matrix that incorporates the spatial distance between the properties. The distance can be found with the so-called haversine function. 
+
+```{r, message=FALSE}
+# create a weight matrix 
+dist <- geodist(x = cbind(houston$longitude, houston$latitude), measure = "haversine")/1000
+```
+
+My starting point is to generate a 10-nearest neighbor matrix for point data using the distances we just calculated with this haversine function:
+
+```{r}
+n <- nrow(houston)
+W <- matrix(0, n, n)
+k <- 10
+for (i in 1:n) {
+  dist_i <- dist[i, ]
+  near <- sort(dist_i)[-1][1:k]
+  W[i, which(dist_i %in% near)] <- 1/k
+}
+```
+
+This procedure puts an entry of 1 into each combination of houses that are 10-nearest neighbors, while all other entries remain 0, making the weight matrix sparse. Moreover the non-zero entries are divided by 10 to make the weight matrix row-stochastic. In a next step we can estimate a MESS model for the average rate per night. This allows us to also take into account the spatial location of the property.
+
+```{r}
+# MESS model
+y <- houston$rate
+q <- 12
+y.tilde <- sapply(0:(q-1), function(x) (W%^%x)%*%y) # (9.5)
+G <- matrix(0,q,q)
+diag(G) <- sapply(0:(q-1), function(x) 1/factorial(x)) # (9.6)
+X <- as.matrix(cbind(1, houston$bedrooms))
+colnames(X) <- c("intercept", "bedrooms")
+n <- nrow(X)
+In <- diag(n)
+M <- In - X%*%solve(t(X)%*%X)%*%t(X) # Residual Maker Matrix
+Q <- G%*%(t(y.tilde)%*%M%*%y.tilde)%*%G
+
+iter <- 100
+alpha <- seq(-0.99, -0.01, length.out = iter)
+logl <- numeric(iter)
+for (i in 1:iter) {
+  v <- sapply(0:(q-1), function(x) alpha[i]^x)
+  ee <- t(v)%*%Q%*%v
+  logl[i] <- -n/2*log(ee)
+}
+alpha_hat <- alpha[which.max(logl)] ; alpha_hat
+```
+
+We find the value for $\alpha$ by maximizing the log-likelihood function, as it is illustrated in the plot below. 
+
+<center>
+```{r, echo=FALSE}
+plot(logl ~ alpha, type = "l", lwd = 2, col = 2, xlab = expression(alpha), ylab = "Log-Likelihood")
+abline(v = alpha_hat, lwd = 2, lty = 2)
+```
+</center>
+
+```{r}
+# link between alpha and rho: 
+rho <- 1 - exp(alpha)
+rho_hat <- 1 - exp(alpha_hat) ; rho_hat
+
+S <- lapply(0:(q-1), function(x) alpha_hat^x*(W%^%x)/factorial(x)) # Eq.(9.1)
+S <- Reduce("+", S)
+Sy <- S%*%y
+```
+
+After all the preparatory calculations we have done above, the final model can be easily estimated as a linear model.
+
+```{r}
+fit.mess <- lm(Sy ~ 0 + X)
+summary(fit.mess)
+
+```
+
+##### Spatial Model (SAR)
+To compare our results, we also estimate a SAR model that takes into account a spatial lag on the dependent variable.  
+
+```{r, warning=FALSE, message=FALSE}
+W_listw <- mat2listw(W)
+fit_sar <- lagsarlm(rate ~ bedrooms, W_listw, data = houston, method = "eigen", quiet = TRUE)
+summary(fit_sar)
+```
+
+##### Comparison
+
+In the three sections above we constructed three different models to explain the average rate per night of Airbnb listings in Houston. The first one was a simple OLS type model, whereas the MESS and the SAR model take the spatial dependence between Airbnb listings into account. Let us have a look at their results in the table below.
+
+```{r, include=FALSE}
+
+intercept.ols <- fit.ols$coefficients[1]
+beta.ols <- fit.ols$coefficients[2]
+r2.ols <- summary(fit.ols)$adj.r.squared
+
+intercept.mess <- fit.mess$coefficients[1]
+beta.mess <- fit.mess$coefficients[2]
+rho.mess <- rho_hat
+alpha.mess <- alpha_hat
+r2.mess <- summary(fit.mess)$adj.r.squared
+
+intercept.sar <- fit_sar$coefficients[1]
+beta.sar <- fit_sar$coefficients[2]
+rho.sar <- fit_sar$rho
+r2.sar <- summary.sarlm(fit_sar, Nagelkerke = TRUE)$NK
+
+table <- matrix(c(intercept.ols, beta.ols, NA, NA, r2.ols, intercept.sar, beta.sar, rho.sar, NA, r2.sar, intercept.mess, beta.mess, rho.mess, alpha.mess, r2.mess), nrow = 5)
+table <- as.data.frame(table)
+colnames(table) <- c("OLS", "SAR", "MESS")
+rownames(table) <- c("intercept", "bedrooms", "rho", "alpha", "R-squared")
+
+```
+
+As one could already suspect the models we look at are far away from perfect. Nevertheless, looking at the $R^2$ values, even the simple OLS model with only the number of bedrooms as predictor is able to explain more than $1/4$ of the variation in the average rate per night. The SAR model, taking into account a spatial lag parameter ($\rho$) does not improve the explanatory power by much and the value of $\rho$ is relatively small. A little bit of improvement can be achieved with the MESS model, which shows a $R^2$ of almost 0.3 and a $\rho$ of 0.279.
+
+```{r, echo=FALSE}
+options(knitr.kable.NA = "")
+kable(table, align = "c", digits=3) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+As expected, the spatial models show smaller coefficients on the explanatory variable. This, however, is due to the fact that we only observe the direct effect in this coefficient. Spillover and feedback effects are not incorporated here.
+
+##### Distance Based Matrix
+
+In a final step, I will construct a different weight matrix to see how this choice affects the models. Instead of applying the k-nearest method, I will now use a distance based weight matrix. Compared to the sparse neighborhood based matrix, this approach will result in a full matrix. However, due to the fact that we construct the weight matrix based on the inverse distance, as the distances between the properties get larger, the weights get smaller. Taking advantage of the already calculated distances, this matrix can be constructed as follows.
+
+```{r}
+# distance based weight matrix
+
+W <- 1/dist # inverse of the distance
+W[!is.finite(W)] <- 0 # 0 on the main diagonal
+
+# make the weight matrix row-stochastic
+rtot <- rowSums(W)
+W <- W / rtot 
+
+```
+
+```{r, include=FALSE}
+rowSums(W)
+```
+
+
+Now I estimate the two spatial models again to analyze the impact of the new weight matrix. The comparison is summarized in the table below.
+
+```{r, include=FALSE}
+# MESS model
+y <- houston$rate
+q <- 12
+y.tilde <- sapply(0:(q-1), function(x) (W%^%x)%*%y) # (9.5)
+G <- matrix(0,q,q)
+diag(G) <- sapply(0:(q-1), function(x) 1/factorial(x)) # (9.6)
+X <- as.matrix(cbind(1, houston$bedrooms))
+colnames(X) <- c("intercept", "bedrooms")
+n <- nrow(X)
+In <- diag(n)
+M <- In - X%*%solve(t(X)%*%X)%*%t(X) # Residual Maker Matrix
+Q <- G%*%(t(y.tilde)%*%M%*%y.tilde)%*%G
+
+iter <- 100
+alpha <- seq(-0.99, -0.01, length.out = iter)
+logl <- numeric(iter)
+for (i in 1:iter) {
+  v <- sapply(0:(q-1), function(x) alpha[i]^x)
+  ee <- t(v)%*%Q%*%v
+  logl[i] <- -n/2*log(ee)
+}
+fit.mess <- lm(Sy ~ 0 + X)
+
+# SAR Model
+W_listw <- mat2listw(W)
+fit_sar <- lagsarlm(rate ~ bedrooms, W_listw, data = houston, method = "eigen", quiet = TRUE)
+
+# table
+intercept.mess.c <- fit.mess$coefficients[1]
+beta.mess.c <- fit.mess$coefficients[2]
+rho.mess.c <- rho_hat
+alpha.mess.c <- alpha_hat
+r2.mess.c <- summary(fit.mess)$adj.r.squared
+
+intercept.sar.c <- fit_sar$coefficients[1]
+beta.sar.c <- fit_sar$coefficients[2]
+rho.sar.c <- fit_sar$rho
+r2.sar.c <- summary.sarlm(fit_sar, Nagelkerke = TRUE)$NK
+
+
+table <- matrix(c(intercept.sar, beta.sar, rho.sar, NA, r2.sar, intercept.mess, beta.mess, rho_hat, alpha_hat, r2.mess, intercept.sar.c, beta.sar.c, rho.sar.c, NA, r2.sar.c, intercept.mess.c, beta.mess.c, rho.mess.c, alpha.mess.c, r2.mess.c), nrow = 5)
+table <- as.data.frame(table)
+colnames(table) <- c("SAR (10-nearest)", "MESS (10-nearest)", "SAR (distance)", "MESS (distance)")
+rownames(table) <- c("intercept", "bedrooms", "rho", "alpha", "R-squared")
+
+```
+
+
+```{r, echo=FALSE}
+options(knitr.kable.NA = "")
+kable(table, align = "c", digits=3) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+The two MESS models are exactly the same, whereas the SAR model shows different values. However, the explanatory power is almost identical and the overall interpretation does not change. It is, nevertheless, interesting to see that the coefficient for $\rho$ is a lot larger with the weight matrix based on the inverse distances. 
+
+#### Reflection on the Course
+
+The concept of having a theory session in the morning and a coding session in the afternoon was the perfect setup to run this course. The applications in R were presented in an accessible way and helped to understand the material covered in the theory blocks. Setting up a model can already be challenging in the first step, when it only exists on a piece of paper. However, it certainly becomes even more complex if you have to implement it in a statistical program such as R. The coding sessions took some of this complexity away and this is not only helpful with regard to this course, but will be highly beneficial in the research phase of my PhD. The two assignment were a nice way to apply the learned material for myself, to really check whether the concepts have been well understood. 
+
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+My five main takeaways are: 
+
+1. beautiful data visualizations with maps
+2. maximum likelihood estimation in R (full and concentrated)
+3. creating weight matrices (k-nearest and distance-based)
+4. computationally expensive operations with log determinants of large matrices
+5. SAR, SDM and MESS models for spatial regression analysis
+
+</div>
+
+I did my best to demonstrate as much as possible from these main takeaways in the term paper. Unfortunately, the data that I analyzed as a term paper project did not show as much spatial dependence as I hoped and time constraints do not allow me find yet another data set. Nevertheless, it was an interesting topic and led to some intriguing insights and visualizations. Another possible exercise would have been to compare two properties with the same number of bedrooms in two different locations (e.g., Irving and Corpus Christi), but since we have seen that already during the course, I did not include it in this final version of the term paper. Thank you very much for offering this course, I will highly recommend it to other students. 
+
+[^1]: LeSage, J., and R.K. Pace (2009): Introduction to Spatial Econometrics, London and New York: Taylor & Francis Group.
