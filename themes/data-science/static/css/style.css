@@ -1021,9 +1021,10 @@ code{
   transition: var(--fastFade);
 }
 
-.nav__title{
+.nav__title a{
+  text-decoration: none;
   font-family: var(--titleFont);
-  font-size: 14px;
+  font-size: 15px;
   color: var(--accent);
   align-self: center;
   font-weight: bold;
