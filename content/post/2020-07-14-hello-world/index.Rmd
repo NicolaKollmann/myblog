@@ -25,5 +25,5 @@ type: ''
 
 ## My first post
 
-This is a test post for my upcoming blog :smile:.
+This is a test post for my upcoming blog :smile:. $\rho$
 

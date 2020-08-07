@@ -10,7 +10,7 @@ tags:
   - R
   - spatial econometrics
   - maps
-authors: []
+authors: [Nicola Kollmann]
 description: ''
 disqus: ''
 image: ''
