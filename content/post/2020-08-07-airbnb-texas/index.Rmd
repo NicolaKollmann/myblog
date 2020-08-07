@@ -7,11 +7,12 @@ slug: airbnb-texas
 categories:
   - post
 tags:
-  - english
   - R
   - spatial econometrics
   - maps
+  - english
 buttons:
+readingTime: '15'
 description: 'This post analyzes Airbnb Property Data from Texas. A special focus lays on the spatial dependence between the average rates per night.'
 disqus: 'true'
 thumbnail: 'thumbnail.jpg' 
