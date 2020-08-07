@@ -1,6 +1,7 @@
 ---
-title: Analyzing Airbnb Property Data from Texas
-author: Nicola Kollmann
+title: 'Airbnb Property Data from Texas'
+authors: 
+  - Nicola Kollmann
 date: '2020-08-07'
 slug: airbnb-texas
 categories:
@@ -10,7 +11,7 @@ tags:
   - R
   - spatial econometrics
   - maps
-authors: [Nicola Kollmann]
+buttons:
 description: 'This post analyzes Airbnb Property Data from Texas. A special focus lays on the spatial dependence between the average rates per night.'
 disqus: 'true'
 thumbnail: 'thumbnail.jpg' 
@@ -21,11 +22,6 @@ imageCreditLink: 'https://unsplash.com/@matthew_t_rader'
 imageSrc: 'Unsplash'
 imageSrcLink: 'https://unsplash.com'
 type: ''
-output: 
-  html_document: 
-    df_print: kable
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
