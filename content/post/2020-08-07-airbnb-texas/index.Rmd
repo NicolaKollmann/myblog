@@ -11,13 +11,21 @@ tags:
   - spatial econometrics
   - maps
 authors: [Nicola Kollmann]
-description: ''
-disqus: ''
-image: ''
-imageAlt: ''
-imageCredit: ''
-imageCreditLink: ''
+description: 'This post analyzes Airbnb Property Data from Texas. A special focus lays on the spatial dependence between the average rates per night.'
+disqus: 'true'
+thumbnail: 'thumbnail.jpg' 
+image: 'thumbnail.jpg'
+imageAlt: 'Flags of the US and Texas on a wall'
+imageCredit: 'Matthew T Rader'
+imageCreditLink: 'https://unsplash.com/@matthew_t_rader'
+imageSrc: 'Unsplash'
+imageSrcLink: 'https://unsplash.com'
 type: ''
+output: 
+  html_document: 
+    df_print: kable
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -39,8 +47,6 @@ library(plotly)
 theme_set(theme_light())
 ```
 
-
-## Term Paper
 ### Analyzing Airbnb Property Data from Texas
 
 This is an R Markdown document that documents my work for the term paper in the "Regression Analysis for Spatial Data" course. The course was taught by Professor Dr. Roland Füss and Dr. Zeno Adams as part of the GSERM Summer School 2020. The main textbook for the course was written by LeSage and Page (2009)[^1]. Thus, the methods used in this term paper are also in close resemblance to their work. 
@@ -84,7 +90,7 @@ dat <- type_convert(dat)
 
 #### Explorative Data Analysis
 
-The first part of the term paper will focus on a explorative data analysis. To get a first idea about the data set, the table below provides a short glimpse into the first 10 observations and the available variables. It also allows for more interaction with the data by searching and filtering the entire data set.
+The first part of the term paper will focus on a explorative data analysis. To get a first idea about the data set, the table below provides a short glimpse into the first 10 observations and the available variables. It also allows for more interaction with the data by searching and filtering the first 100 observations.
 
 ```{r, echo=FALSE, warning=FALSE}
 datatable(dat, rownames = FALSE, filter="top", options = list(pageLength = 10, scrollX=T))
@@ -92,8 +98,8 @@ datatable(dat, rownames = FALSE, filter="top", options = list(pageLength = 10, s
 
 The table above lets us observe that we have some characteristics for each property listing on Airbnb. The first column `rate` contains the average rate per night in US Dollars for each listing . Also, we have information on the number of bedrooms (where a value of `1` corresponds to either a Studio apartment or a one-bedroom property) and the `year` and `month`, when the property was first listed on Airbnb. Moreover, we see that the `longitude` and `latitude` for each property is provided, giving us the exact point on the map, where the property is located. The plot below shows how our property listings are distributed across the state of Texas.
 
-<center>
-```{r, echo=FALSE, warning=FALSE}
+
+```{r, echo=FALSE, warning=FALSE, out.width = '100%'}
 m <- leaflet()
 m <- setView(m, lng = mean(dat$longitude), lat = mean(dat$latitude), zoom = 6)
 m <- addProviderTiles(m, providers$Stamen.Toner)
@@ -101,14 +107,13 @@ m <- addCircleMarkers(m, lng = dat$longitude, lat = dat$latitude,
                       clusterOptions = markerClusterOptions())
 m
 ```
-</center>
 
 One thing that becomes quite obvious when you look at the map is that most of the properties cluster in and around the larger cities in Texas (e.g., Dallas, Austin, San Antonio and Houston). Zooming into the map allows for a more granular point of view.
 
 Visually exploring the data a bit more lets us find more interesting facts. For instance, one possible question that we would like to address is if there is any spatial dependence in the average rate per night. Our intuition would suggest that Airbnb's pricing algorithm takes the spatial location of a property into account. By dividing the properties into 10 categories based on their rate and color-coding them, it is possible to check this intuition with the following map.
 
-<center>
-```{r, echo=FALSE, warning=FALSE}
+
+```{r, echo=FALSE, warning=FALSE, out.width = '100%'}
 # color coding the observations according to the average rate per night in $
 pal <- colorQuantile("plasma", domain = dat$rate, reverse = TRUE, n = 10)
 dat$color <- pal(dat$rate)
@@ -124,7 +129,7 @@ m <- m %>% addEasyButton(easyButton(
     icon="fa-crosshairs", title="Fly to Houston",
     onClick=JS("function(btn, map){ map.flyTo([29.74078, -95.35435], 10); }"))); m
 ```
-</center>
+
 
 Even though it seems like there is no general pattern to be observed at first, the spatial dependence becomes apparent when zooming into urban areas around the major cities. For instance, focusing on the area in and around Houston (click the crosshairs icon), clearly shows that properties in the city center tend to be cheaper compared to the surrounding area. This is an interesting first observation that we will keep in mind in the following analysis.
 
@@ -141,11 +146,9 @@ plot <- dat %>%
     scale_x_continuous(breaks = round(seq(min(dat$bedrooms), max(dat$bedrooms), by = 1),1))
 ```
 
-<center>
 ```{r, echo=FALSE}
 plot
 ```
-</center>
 
 The majority of properties either is listed as a studio or has one bedroom. The maximum number of bedrooms is 13.
 
@@ -160,11 +163,9 @@ plot <- dat %>%
   scale_x_continuous(breaks = round(seq(min(dat$bedrooms), max(dat$bedrooms), by = 1),1))
 ```
 
-<center>
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = '100%'}
 ggplotly(plot)
 ```
-</center>
 
 Looking at the plot, one can observe a linear trend by focusing on the lower and upper end of the data clouds for each category. Even though every number of bedrooms has properties across the whole range of rates, the bulk of the data slightly shifts upwards moving from less bedrooms on the left hand side, to more bedrooms to the right. However, it is important to note that the number of bedrooms is not a very strong predictor of the rate, as long as it is not above 4.  
 
@@ -179,11 +180,9 @@ plot <- dat %>%
     scale_x_continuous(breaks = round(seq(min(dat$year), max(dat$year), by = 1),1))
 ```
 
-<center>
 ```{r, echo=FALSE}
 plot
 ```
-</center>
 
 Yes, the number of listings has grown over the past decade. The data has been collected in the second half of 2017, which explains the drop of new listings in the graph.  
 
@@ -214,19 +213,15 @@ hist <- rate_top8 %>%
   labs(x = "average rate per night [$]", y = "# of property listings")
 ```
 
-<center>
 ```{r, echo=FALSE}
 bp
 ```
-</center>
 
 Looking at the data from this perspective shows that Corpus Christi has the highest median rate per night, while Irving seems to be on the lower end of the spectrum. As one can see, every city has a fair amount of extremely high priced properties, with rates of more than 750$ per night. This lets us infer that the distribution of rates is positively skewed, with a large tail to the right-hand side of the distribution. The following figure confirms this for most of the cities.
 
-<center>
 ```{r, echo=FALSE, message=FALSE}
 hist
 ```
-</center>
 
 ***
 
@@ -308,12 +303,11 @@ alpha_hat <- alpha[which.max(logl)] ; alpha_hat
 
 We find the value for $\alpha$ by maximizing the log-likelihood function, as it is illustrated in the plot below. 
 
-<center>
 ```{r, echo=FALSE}
 plot(logl ~ alpha, type = "l", lwd = 2, col = 2, xlab = expression(alpha), ylab = "Log-Likelihood")
 abline(v = alpha_hat, lwd = 2, lty = 2)
 ```
-</center>
+
 
 ```{r}
 # link between alpha and rho: 
