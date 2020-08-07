@@ -441,7 +441,7 @@ rownames(table) <- c("intercept", "bedrooms", "rho", "alpha", "R-squared")
 
 
 ```{r, echo=FALSE}
-round(table)
+round(table, 3)
 ```
 
 The two MESS models are exactly the same, whereas the SAR model shows different values. However, the explanatory power is almost identical and the overall interpretation does not change. It is, nevertheless, interesting to see that the coefficient for $\rho$ is a lot larger with the weight matrix based on the inverse distances. 
