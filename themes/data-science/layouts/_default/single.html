@@ -42,7 +42,11 @@
 
       {{ if .Params.date }}
       <div class="post__date">
+        {{ if .Params.readingTime }}
+        <p>{{ .Date.Format "January 2 2006" }} • {{ .Params.readingTime }} min read</p>
+        {{ else }}
         <p>{{ .Date.Format "January 2 2006" }} • {{ .ReadingTime }} min read</p>
+        {{ end }}
       </div>
       {{ end }}
 
