@@ -45,7 +45,7 @@ theme_set(theme_light())
 
 ### Analyzing Airbnb Property Data from Texas
 
-This is an R Markdown document that documents my work for the term paper in the "Regression Analysis for Spatial Data" course. The course was taught by Professor Dr. Roland Füss and Dr. Zeno Adams as part of the GSERM Summer School 2020. The main textbook for the course was written by LeSage and Page (2009)[^1]. Thus, the methods used in this term paper are also in close resemblance to their work. 
+This is an R Markdown document that documents part of my work for the term paper in the "Regression Analysis for Spatial Data" course. The course was taught by Professor Dr. Roland Füss and Dr. Zeno Adams as part of the GSERM Summer School 2020. The main textbook for the course was written by LeSage and Page (2009)[^1]. Thus, the methods used in this term paper are also in close resemblance to their work. 
 
 #### Load the data set 
 
@@ -86,7 +86,7 @@ dat <- type_convert(dat)
 
 #### Explorative Data Analysis
 
-The first part of the term paper will focus on a explorative data analysis. To get a first idea about the data set, the table below provides a short glimpse into the first 10 observations and the available variables. It also allows for more interaction with the data by searching and filtering the first 100 observations.
+The first part of the term paper will focus on a explorative data analysis. To get a first idea about the data set, the table below provides a short glimpse into the first 10 observations and the available variables. It also allows for more interaction with the data by searching and filtering the entire data set.
 
 ```{r, echo=FALSE, warning=FALSE}
 datatable(dat, rownames = FALSE, filter="top", options = list(pageLength = 10, scrollX=T))
@@ -363,9 +363,7 @@ rownames(table) <- c("intercept", "bedrooms", "rho", "alpha", "R-squared")
 As one could already suspect the models we look at are far away from perfect. Nevertheless, looking at the $R^2$ values, even the simple OLS model with only the number of bedrooms as predictor is able to explain more than $1/4$ of the variation in the average rate per night. The SAR model, taking into account a spatial lag parameter ($\rho$) does not improve the explanatory power by much and the value of $\rho$ is relatively small. A little bit of improvement can be achieved with the MESS model, which shows a $R^2$ of almost 0.3 and a $\rho$ of 0.279.
 
 ```{r, echo=FALSE}
-options(knitr.kable.NA = "")
-kable(table, align = "c", digits=3) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+round(table, 3)
 ```
 
 As expected, the spatial models show smaller coefficients on the explanatory variable. This, however, is due to the fact that we only observe the direct effect in this coefficient. Spillover and feedback effects are not incorporated here.
@@ -443,33 +441,9 @@ rownames(table) <- c("intercept", "bedrooms", "rho", "alpha", "R-squared")
 
 
 ```{r, echo=FALSE}
-options(knitr.kable.NA = "")
-kable(table, align = "c", digits=3) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+round(table)
 ```
 
 The two MESS models are exactly the same, whereas the SAR model shows different values. However, the explanatory power is almost identical and the overall interpretation does not change. It is, nevertheless, interesting to see that the coefficient for $\rho$ is a lot larger with the weight matrix based on the inverse distances. 
-
-#### Reflection on the Course
-
-The concept of having a theory session in the morning and a coding session in the afternoon was the perfect setup to run this course. The applications in R were presented in an accessible way and helped to understand the material covered in the theory blocks. Setting up a model can already be challenging in the first step, when it only exists on a piece of paper. However, it certainly becomes even more complex if you have to implement it in a statistical program such as R. The coding sessions took some of this complexity away and this is not only helpful with regard to this course, but will be highly beneficial in the research phase of my PhD. The two assignment were a nice way to apply the learned material for myself, to really check whether the concepts have been well understood. 
-
-
-<style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
-</style>
-<div class = "blue">
-
-My five main takeaways are: 
-
-1. beautiful data visualizations with maps
-2. maximum likelihood estimation in R (full and concentrated)
-3. creating weight matrices (k-nearest and distance-based)
-4. computationally expensive operations with log determinants of large matrices
-5. SAR, SDM and MESS models for spatial regression analysis
-
-</div>
-
-I did my best to demonstrate as much as possible from these main takeaways in the term paper. Unfortunately, the data that I analyzed as a term paper project did not show as much spatial dependence as I hoped and time constraints do not allow me find yet another data set. Nevertheless, it was an interesting topic and led to some intriguing insights and visualizations. Another possible exercise would have been to compare two properties with the same number of bedrooms in two different locations (e.g., Irving and Corpus Christi), but since we have seen that already during the course, I did not include it in this final version of the term paper. Thank you very much for offering this course, I will highly recommend it to other students. 
 
 [^1]: LeSage, J., and R.K. Pace (2009): Introduction to Spatial Econometrics, London and New York: Taylor & Francis Group.
