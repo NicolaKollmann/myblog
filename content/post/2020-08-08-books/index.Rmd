@@ -23,7 +23,15 @@ imageSrcLink: 'https://unsplash.com'
 type: ''
 ---
 
-## 1.
+***
+
+:books:*currently reading*: [Anna Karenina - Leo Tolstoy](https://books2read.com/u/brWQZE)
+
+***
+
+The following list contains my favorite books - both fiction and non-fiction - in no particular order. Of course, this post will probably evolve over time and I will do a regular update.
+
+## 1. 
 ## 2.
 ## 3.
 ## 4.
