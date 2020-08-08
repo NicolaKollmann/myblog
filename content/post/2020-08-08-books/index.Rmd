@@ -15,14 +15,25 @@ description: 'This post contains my personal top 10 books & I am curious to find
 disqus: 'true'
 thumbnail: 'thumbnail.jpg' 
 image: 'thumbnail.jpg'
-imageAlt: 'Sign saying hola'
-imageCredit: 'Jon Tyson'
-imageCreditLink: 'https://unsplash.com/@jontyson'
+imageAlt: 'Image of a bookshelf'
+imageCredit: 'Alfons Morales'
+imageCreditLink: 'https://unsplash.com/@alfonsmc10'
 imageSrc: 'Unsplash'
 imageSrcLink: 'https://unsplash.com'
 type: ''
 ---
-## My first post
 
-This is a test post for my upcoming blog :smile:.
+## The List
+
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+
 
