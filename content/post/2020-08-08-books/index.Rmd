@@ -5,11 +5,11 @@ authors:
 date: '2020-08-08'
 slug: books
 categories:
-  - post
+  - recommendation
 tags:
   - books
   - literature
-  - english
+  - personal
 buttons:
 description: 'This post contains my personal top 10 books & I am curious to find out about yours.'
 disqus: 'true'

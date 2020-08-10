@@ -1,0 +1,29 @@
+---
+title: 'My Music'
+authors: 
+  - Nicola Kollmann
+date: '2020-08-10'
+slug: music
+categories:
+  - recommendation
+tags:
+  - music
+  - playlist
+  - personal
+buttons:
+description: 'This post contains my personal music playlist. The most recent 25 songs that made it into my favorite selection - good vibes only.'
+disqus: 'true'
+thumbnail: 'thumbnail.jpg' 
+image: 'thumbnail.jpg'
+imageAlt: 'you are what you listen to'
+imageCredit: 'Mohammad Metri'
+imageCreditLink: 'https://unsplash.com/@mohammadmetri'
+imageSrc: 'Unsplash'
+imageSrcLink: 'https://unsplash.com'
+type: ''
+---
+## My playlist
+
+<iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/ch/playlist/recent-25/pl.u-JPAZEDVCW4yzLx?l=en"></iframe>
+
+Enjoy! :sunglasses: & let me now how I can discover your personal playlist in the comment section down below.
