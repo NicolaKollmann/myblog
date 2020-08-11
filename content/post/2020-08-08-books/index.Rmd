@@ -25,7 +25,7 @@ type: ''
 
 ***
 
-:books:*currently reading*: [Anna Karenina - Leo Tolstoy](https://books2read.com/u/brWQZE)
+:books:*currently reading* : [Anna Karenina - Leo Tolstoy](https://books2read.com/u/brWQZE)
 
 ***
 
