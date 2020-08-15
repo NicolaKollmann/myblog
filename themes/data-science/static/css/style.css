@@ -1023,11 +1023,10 @@ code{
 
 .nav__title a{
   text-decoration: none;
-  font-family: var(--titleFont);
-  font-size: 15px;
+  font-family: var(--nameFont);
+  font-size: 17px;
   color: var(--accent);
   align-self: center;
-  font-weight: bold;
   margin: 0 auto;
   flex: 1;
   text-align: center;
