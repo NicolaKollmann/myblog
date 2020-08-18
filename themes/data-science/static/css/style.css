@@ -938,8 +938,6 @@ hr{
     font-style: normal;
 }
 
-
-
 code{
   font-family: 'JetBrains Mono';
   font-size: 12px;
@@ -1036,7 +1034,7 @@ code{
 .nav__title a{
   text-decoration: none;
   font-family: var(--nameFont);
-  font-size: 17px;
+  font-size: 21px;
   color: var(--accent);
   align-self: center;
   margin: 0 auto;
