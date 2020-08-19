@@ -1,0 +1,29 @@
+---
+title: 'My Point of View'
+authors: 
+  - Nicola Kollmann
+date: '2020-08-19'
+slug: point-of-view
+categories:
+  - post
+tags:
+  - personal
+  - R
+  - Setup
+buttons:
+description: 'This is a test post.'
+disqus: 'true'
+thumbnail: 'thumbnail.jpg' 
+image: 'thumbnail.jpg'
+imageAlt: 'Workspace setup with an iMac'
+imageCredit: 'Sora Sagano'
+imageCreditLink: 'https://unsplash.com/@sorasagano'
+imageSrc: 'Unsplash'
+imageSrcLink: 'https://unsplash.com'
+type: ''
+draft: true
+---
+
+![Screenshot of my RStudio setup](Screenshot_R.png)
+
+
