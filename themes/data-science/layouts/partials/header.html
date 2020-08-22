@@ -3,6 +3,20 @@
 
 <head>
   
+  <!-- Topbar -->
+  <script src="/js/jquery-1.10.2.min.js"></script>
+  <script src="/js/topbar.js"></script>
+  <script>
+      $(function() {
+          // Page load
+          topbar.show()
+          setTimeout(function() {
+            $('#main_content').fadeIn('slow')
+            topbar.hide()
+          }, 1500)
+      })
+  </script>
+
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175025652-1"></script>
   <script>
