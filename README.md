@@ -9,5 +9,5 @@
  * [Yihui Xie](https://github.com/yihui) making it possible to create Blogs and Websites with R Markdown via the `blogdown` package. This is an open-source (GPL-3) R package to generate static websites based on [R Markdown](https://rmarkdown.rstudio.com/) and [Hugo](https://gohugo.io/).
  * [Netlify](https://netlify.com): The all-in-one platform for automating modern web projects.
  * The tiny & beautiful site-wide progress indicator was developed by [Buu Nguyen](https://github.com/buunguyen/topbar).
- * Thanks to [Simon Whitaker](https://github.com/simonwhitaker/github-fork-ribbon-css) for providing the code of the "Fork me on Github" ribbon.
+ * Thanks to [Tim Holman](https://github.com/tholman/github-corners) for providing the code of the "Github corner".
  
