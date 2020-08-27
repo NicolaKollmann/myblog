@@ -10,4 +10,4 @@
  * [Netlify](https://netlify.com): The all-in-one platform for automating modern web projects.
  * The tiny & beautiful site-wide progress indicator was developed by [Buu Nguyen](https://github.com/buunguyen/topbar).
  * Thanks to [Tim Holman](https://github.com/tholman/github-corners) for providing the code of the "Github corner".
- 
+ * And last but not least, credits to my girlfriend [Alícia López](https://digitalportfoliobyalicia.blogspot.com) for the creation of the intro illustration. 
