@@ -21,7 +21,7 @@ imageCreditLink: 'https://unsplash.com/@sorasagano'
 imageSrc: 'Unsplash'
 imageSrcLink: 'https://unsplash.com'
 type: ''
-draft: true
+
 ---
 
 ![Screenshot of my RStudio setup](Screenshot_R.png)
