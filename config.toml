@@ -9,7 +9,7 @@ enableRobotsTXT = true
 
 preserveTaxonomyNames = true
 
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "\\.knit\\.md$", "\\.utf8\\.md$", "_cache$"]
 
 # sectionPagesMenu = "main"
 
