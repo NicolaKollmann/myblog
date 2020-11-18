@@ -98,7 +98,7 @@
               </div>
               <div class="item__meta">
                 <!-- <p class='item__meta-category'>{{ .Params.categories }}</p> -->
-                <span class='card-tag' >{{ delimit .Params.tags ", " }}</span>
+                <span class='card-tag' >{{ with .Params.tags }}{{ delimit . ", "}}{{ end }}</span>
 
               </div>
             </div>
