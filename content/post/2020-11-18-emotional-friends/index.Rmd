@@ -168,7 +168,7 @@ tab_df <- tab_df %>%
 
 ```
 
-Using my processed dataset, I created a unique visualization using the `gt` package, which styles 
+Using my processed dataset, I created a unique visualization using the `gt` package.
 
 ```{r, message=FALSE}
 library(gt)
