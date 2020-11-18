@@ -37,9 +37,6 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "\\.knit\\.md$", "\\.utf8\\.md$", "_c
   highlightjsThemeLight = ""
   highlightjsThemeDark = ""
 
-
-
-
 [params.social]
   email = "mailto:nicola@kollmann.li"
   twitter = "https://twitter.com/NicolaKollmann"

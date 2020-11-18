@@ -65,7 +65,7 @@
       <!-- Change the range number here to affect the maximum number of items in your grid -->
       {{ range first 50 (where .Data.Pages "Type" "post") }}
 
-        <div class="item {{ range .Params.categories }}{{ . }}{{ end }}" data-tags="{{ delimit .Params.tags ", " }}">
+        <div class="item {{ range .Params.categories }}{{ . }}{{ end }}" data-tags="{{ with .Params.tags }}{{ delimit . ", "}}{{ end }}">
           <a class="item__link" href="{{ .Permalink }}">
             {{ if .Params.thumbnail }}
               <img class="item__image" src="{{ .RelPermalink }}{{ .Params.thumbnail }}" alt="{{ .Params.imageAlt }}" class="img-responsive">
